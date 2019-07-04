@@ -19,7 +19,7 @@ export class UserService {
       if (result.code === 1) {
         return this.router.navigateByUrl('/signin');
       }
-      throw new Error('Cannot signup!');
+      throw new Error('Email exist!');
     });
   }
 
