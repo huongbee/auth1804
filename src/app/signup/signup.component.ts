@@ -27,7 +27,8 @@ export class SignupComponent implements OnInit {
     const { email, name, password, repassword } = this.signUpForm.value;
     if (password !== repassword) {
       this.message = 'Password must match!';
-    } else {
+    }
+    else {
       this.userService.userRegister(email, password, name)
       .catch(err => {
         return this.message = err.message;

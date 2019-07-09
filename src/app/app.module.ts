@@ -9,6 +9,8 @@ import { HomeComponent } from './home/home.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { UserService } from './service/user.service';
 import { HttpClientModule } from '@angular/common/http';
+import { StoreModule } from '@ngrx/store';
+import { userReducer } from './ngrxstore/reducers';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,10 @@ import { HttpClientModule } from '@angular/common/http';
     AppRoutingModule,
     ReactiveFormsModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    StoreModule.forRoot({
+      user: userReducer
+    })
   ],
   providers: [UserService],
   bootstrap: [AppComponent]

@@ -22,5 +22,18 @@ export class UserService {
       throw new Error('Email exist!');
     });
   }
-
+  signIn(email: string, password: string){
+    return this.http.post(`${URL}/user/login`,{ email, password })
+    .toPromise()
+    .then((result: ServerResponse)=>{
+      if(result.code === 1){
+        // save user into store
+        
+        // save token
+      }
+      else{
+        throw new Error('Email or password invalid!')
+      }
+    })
+  }
 }
