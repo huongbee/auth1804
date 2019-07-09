@@ -1,1 +1,13 @@
-<router-outlet></router-outlet>
+<div *ngIf="!loading">
+    <p>Hello, {{user?.name}}</p>
+    <div>
+        <a href='/'>Home</a>
+        <a [routerLink]="['/profile']" routerLinkActive="active" >Profile</a>
+    </div>
+    <div class="container">
+        <router-outlet></router-outlet>
+    </div>
+</div>
+<div *ngIf="loading">
+    loading...
+</div>

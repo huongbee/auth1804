@@ -9,20 +9,7 @@ import { UserService } from '../service/user.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  user: User;
-  loading = true;
-
-  constructor(
-    private store: Store<User>,
-    private userService: UserService
-  ) {
-    this.userService.check();
-    this.store.select('user').subscribe(user=>{
-      if(user !== null){
-        this.loading = false;
-        this.user = user;
-      }
-    })
+  constructor(  ) {
   }
 
   ngOnInit() {
