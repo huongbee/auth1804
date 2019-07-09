@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { URL, ServerResponse, User } from '../types';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -43,6 +43,29 @@ export class UserService {
       }
       else{
         throw new Error('Email or password invalid!')
+      }
+    })
+  }
+  async check(){
+    const token = localStorage.getItem('token')
+    if(!token){
+      return this.router.navigateByUrl('/signin');
+    }
+    const headers = new HttpHeaders({ token })
+    return this.http.post(`${URL}/user/check`, {}, { headers } )
+    .toPromise()
+    .then((result: ServerResponse)=>{
+      if(result.code === 1){
+        // save user into store
+        this.store.dispatch({
+          type: 'INIT_USER',
+          user: result.data
+        })
+      }
+      else{
+        // invalid token
+        localStorage.removeItem('token');
+        return this.router.navigateByUrl('/signin');
       }
     })
   }
