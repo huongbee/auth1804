@@ -1,1 +1,13 @@
 <p>profile works!</p>
+
+<img *ngIf="user" src="http://localhost:3000/images/{{user.avatar}}"  height="100px">
+<form [formGroup]="formUpload" (submit)="onChangeAvatar()">
+    <input type="file" name="avatar" (change)="getFileInfo($event)">
+    <button class="btn btn-success">Change Avatar</button>
+</form>
+
+<hr>
+
+<pre>
+    {{user | json }}
+</pre>

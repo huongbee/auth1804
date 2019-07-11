@@ -74,4 +74,22 @@ export class UserService {
       }
     })
   }
+  async uploadFile(formData: FormData){
+    const token = localStorage.getItem('token')
+    const headers = new HttpHeaders({ token })
+    return this.http.post(`${URL}/user/change-avatar`, formData, { headers } )
+    .toPromise()
+    .then((result: ServerResponse)=>{
+      if(result.code === 1){
+        // save user into store
+        this.store.dispatch({
+          type: 'INIT_USER',
+          user: result.data
+        })
+      }
+      else{
+        return alert(result.message)
+      }
+    })
+  }
 }
