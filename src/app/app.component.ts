@@ -19,8 +19,8 @@ export class AppComponent {
   ) {
     this.userService.check();
     this.store.select('user').subscribe(user=>{
+      this.loading = false;
       if(user !== null){
-        this.loading = false;
         this.user = user;
       }
     })

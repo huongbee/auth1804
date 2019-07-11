@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { URL, ServerResponse, User } from '../types';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { Location } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +14,7 @@ export class UserService {
     private http: HttpClient,
     private router: Router,
     private store: Store<User>,
+    private location: Location
   ) { }
 
   async userRegister(email: string, password: string, name: string) {
@@ -49,6 +51,9 @@ export class UserService {
   async check(){
     const token = localStorage.getItem('token')
     if(!token){
+      if(this.location.path() === '/signup'){
+        return false;
+      }
       return this.router.navigateByUrl('/signin');
     }
     const headers = new HttpHeaders({ token })
